@@ -1,0 +1,167 @@
+<mvc:View
+	controllerName="finanzuhu.dashboard.controller.Main"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.ui.layout.form"
+	core:require="{
+		formatter: 'finanzuhu/dashboard/model/formatter'
+	}">
+
+	<Page id="page" showHeader="false">
+		<content>
+			<VBox id="card" class="fd-card" fitContainer="false">
+				<!-- Kopfbereich -->
+				<HBox justifyContent="SpaceBetween" alignItems="Center">
+					<Title id="title" text="{view>/title}" />
+					<Button
+						id="addButton"
+						class="fd-add-button"
+						text="{i18n>addBooking}"
+						icon="sap-icon://add"
+						press=".onToggleForm" />
+				</HBox>
+
+				<!-- Drei große Kennzahlen -->
+				<HBox id="kpiRow" class="fd-kpi-row" fitContainer="true">
+					<VBox id="kpiIncomeBox" class="fd-kpi-box" width="33.333%">
+						<Label id="kpiIncomeLabel" class="fd-kpi-label" text="{i18n>kpiIncome}" />
+						<Text id="kpiIncomeValue" class="fd-kpi-value" text="{view>/kpiIncome}" />
+					</VBox>
+					<VBox id="kpiExpenseBox" class="fd-kpi-box" width="33.333%">
+						<Label id="kpiExpenseLabel" class="fd-kpi-label" text="{i18n>kpiExpense}" />
+						<Text id="kpiExpenseValue" class="fd-kpi-value" text="{view>/kpiExpense}" />
+					</VBox>
+					<VBox id="kpiResultBox" class="fd-kpi-box" width="33.333%">
+						<Label id="kpiResultLabel" class="fd-kpi-label" text="{i18n>kpiResult}" />
+						<Text id="kpiResultValue" class="fd-kpi-value" text="{view>/kpiResult}" />
+					</VBox>
+				</HBox>
+
+				<!-- Legende oberhalb des Charts -->
+				<HBox id="legendRow" justifyContent="Start" alignItems="Center" wrapping="true">
+					<Text id="legendIncome" class="fd-legend-item fd-legend-income" text="{i18n>legendIncome}" />
+					<Text id="legendExpense" class="fd-legend-item fd-legend-expense" text="{i18n>legendExpense}" />
+					<Text id="legendResult" class="fd-legend-item fd-legend-result" text="{i18n>legendResult}" />
+				</HBox>
+
+				<!-- Trendchart (Chart.js auf Canvas) -->
+				<core:HTML
+					id="chartHost"
+					class="fd-chart-host"
+					content='&lt;canvas id="trendChart" role="img" aria-label="Linienchart mit Einnahmen, Ausgaben und Ergebnis der letzten zwölf Monate"&gt;&lt;/canvas&gt;' />
+
+				<!-- Buchungsliste -->
+				<Text id="bookingsTitle" class="fd-section-title" text="{i18n>lastBookings}" />
+				<Table
+					id="bookingTable"
+					class="fd-booking-table"
+					items="{bookings>/items}"
+					backgroundDesign="Transparent"
+					showSeparators="Inner"
+					width="100%">
+					<columns>
+						<Column id="colDate" width="110px" hAlign="Begin">
+							<Text text="{i18n>colDate}" />
+						</Column>
+						<Column id="colText" hAlign="Begin" width="auto">
+							<Text text="{i18n>colText}" />
+						</Column>
+						<Column id="colAmount" width="150px" hAlign="End">
+							<Text text="{i18n>colAmount}" />
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem id="bookingRow" type="Inactive">
+							<cells>
+								<Text
+									id="bookingDate"
+									class="fd-booking-date"
+									text="{path: 'bookings>date', formatter: 'formatter.formatDateShort'}"
+									textAlign="Begin" />
+								<Text
+									id="bookingText"
+									text="{bookings>text}"
+									textAlign="Begin"
+									wrapping="false"
+									maxLines="1" />
+								<ObjectStatus
+									id="bookingAmount"
+									class="fd-booking-amount"
+									text="{path: 'bookings>amount', formatter: 'formatter.formatEuroSigned'}"
+									state="{= ${bookings>amount} > 0 ? 'Success' : 'None'}"
+									textAlign="End" />
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+
+				<!-- Formular: inline auf-/zuklappbar -->
+				<VBox id="entryForm" class="fd-form-wrap" visible="false">
+					<Text id="formHint" class="fd-form-hint" text="{i18n>validationHint}" visible="false" />
+					<f:Form id="entryFormFields">
+						<f:layout>
+							<f:ColumnLayout
+								columnsM="2"
+								columnsL="4"
+								columnsXL="4"
+								spanM="6"
+								spanL="1"
+								spanXL="1"
+								emptySpanM="0"
+								emptySpanL="0"
+								emptySpanXL="0" />
+						</f:layout>
+						<f:formContainers>
+							<f:FormContainer id="entryFormContainer">
+								<f:formElements>
+									<f:FormElement id="feDate" label="{i18n>formDate}">
+										<f:fields>
+											<DatePicker
+												id="fDate"
+												displayFormat="dd.MM.yyyy"
+												valueFormat="yyyy-MM-dd"
+												placeholder="TT.MM.JJJJ"
+												showCurrentDateButton="true"
+												width="100%" />
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement id="feText" label="{i18n>formText}">
+										<f:fields>
+											<Input
+												id="fText"
+												placeholder="{i18n>formTextPlaceholder}"
+												width="100%" />
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement id="feAmount" label="{i18n>formAmount}">
+										<f:fields>
+											<Input
+												id="fAmount"
+												type="Number"
+												placeholder="0,00"
+												width="100%" />
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement id="feType" label="{i18n>formType}">
+										<f:fields>
+											<Select id="fType" width="100%">
+												<core:Item key="in" text="{i18n>typeIncome}" />
+												<core:Item key="out" text="{i18n>typeExpense}" />
+											</Select>
+										</f:fields>
+									</f:FormElement>
+								</f:formElements>
+							</f:FormContainer>
+						</f:formContainers>
+					</f:Form>
+					<HBox id="saveRow" class="fd-save-row" justifyContent="End">
+						<Button id="saveButton" type="Emphasized" text="{i18n>save}" press=".onSave" />
+					</HBox>
+				</VBox>
+			</VBox>
+		</content>
+	</Page>
+
+</mvc:View>

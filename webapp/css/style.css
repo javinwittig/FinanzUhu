@@ -1,0 +1,213 @@
+html[data-sap-ui-browser^="ie"] {
+	height: 100%;
+	overflow: hidden;
+}
+
+html[data-sap-ui-browser^="ie"] body {
+	height: 100%;
+	overflow: auto;
+}
+
+:root {
+	--fd-bg: #f4f4f2;
+	--fd-surface: #ffffff;
+	--fd-surface-1: #fafafa;
+	--fd-border: #dcdcd8;
+	--fd-text: #1a1a1a;
+	--fd-text-secondary: #5a5a58;
+	--fd-text-muted: #8a8a86;
+	--fd-blue: #2a78d6;
+	--fd-orange: #eb6834;
+	--fd-green: #1baf7a;
+	--fd-red: #c0392b;
+
+	/* Theme-Parameter an das flache, berichtsartige Design anpassen */
+	--sapBackgroundColor: var(--fd-bg);
+	--sapContent_BackgroundColor: var(--fd-bg);
+	--sapContent_ForegroundColor: var(--fd-bg);
+	--sapGroup_ContentBackground: var(--fd-surface);
+	--sapGroup_ContentBorderColor: var(--fd-border);
+	--sapGroup_TitleBackground: transparent;
+	--sapField_Background: var(--fd-surface);
+	--sapField_BorderColor: var(--fd-border);
+	--sapField_Hover_Background: var(--fd-surface);
+	--sapField_Hover_BorderColor: var(--fd-blue);
+	--sapField_Focus_BorderColor: var(--fd-blue);
+	--sapList_Background: transparent;
+	--sapList_BorderColor: var(--fd-border);
+	--sapList_HeaderBackground: transparent;
+	--sapList_HeaderBorderColor: var(--fd-border);
+	--sapList_Hover_Background: var(--fd-surface-1);
+	--sapContent_Shadow0: none;
+	--sapContent_Shadow1: none;
+	--sapContent_Shadow2: none;
+}
+
+html,
+body,
+.sapUiBody,
+.sapUiBodyBackground {
+	background-color: var(--fd-bg);
+}
+
+/* Hauptkarte */
+.fd-card {
+	background: var(--fd-surface);
+	border: 1px solid var(--fd-border);
+	border-radius: 10px;
+	padding: 24px 28px 28px;
+	width: 100%;
+	max-width: 1060px;
+	margin: 0 auto;
+}
+
+.sapMPageContent {
+	display: flex;
+	justify-content: center;
+	padding: 32px 16px;
+}
+
+.fd-title {
+	font-size: 22px;
+	font-weight: 600;
+	color: var(--fd-text);
+}
+
+.fd-add-button .sapMBtnInner {
+	font-weight: 400;
+}
+
+/* Kennzahlen */
+.fd-kpi-row {
+	margin: 20px 0 24px;
+	gap: 14px;
+}
+
+.fd-kpi-box {
+	background: var(--fd-surface-1);
+	border: 1px solid var(--fd-border);
+	border-radius: 10px;
+	padding: 14px 18px;
+}
+
+.fd-kpi-label {
+	font-size: 13px;
+	color: var(--fd-text-secondary);
+}
+
+.fd-kpi-value {
+	font-size: 30px;
+	font-weight: 600;
+	color: var(--fd-text);
+	line-height: 1.15;
+	font-variant-numeric: tabular-nums;
+}
+
+.fd-kpi-income {
+	color: var(--fd-blue);
+}
+
+.fd-kpi-expense {
+	color: var(--fd-orange);
+}
+
+.fd-kpi-result-positive {
+	color: var(--fd-green);
+}
+
+.fd-kpi-result-negative {
+	color: var(--fd-red);
+}
+
+/* Legende */
+.fd-legend-item {
+	font-size: 13px;
+	color: var(--fd-text-secondary);
+	margin-bottom: 10px;
+}
+
+.fd-legend-item + .fd-legend-item {
+	margin-left: 24px;
+}
+
+.fd-legend-item::before {
+	content: "";
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 2px;
+	margin-right: 6px;
+}
+
+.fd-legend-income::before {
+	background: var(--fd-blue);
+}
+
+.fd-legend-expense::before {
+	background: var(--fd-orange);
+}
+
+.fd-legend-result::before {
+	background: var(--fd-green);
+}
+
+/* Chart */
+.fd-chart-host {
+	width: 100%;
+	height: 260px;
+	margin-bottom: 20px;
+}
+
+.fd-chart-host canvas {
+	width: 100% !important;
+	height: 100% !important;
+}
+
+/* Buchungsliste */
+.fd-section-title {
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--fd-text);
+	margin-bottom: 8px;
+}
+
+.fd-booking-table {
+	font-size: 14px;
+}
+
+.fd-booking-table .sapMText {
+	font-size: 14px;
+}
+
+.fd-booking-date .sapMText {
+	color: var(--fd-text-secondary);
+	font-variant-numeric: tabular-nums;
+}
+
+.fd-booking-amount .sapMObjectStatusText {
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+}
+
+.fd-booking-amount .sapMObjectStatusText.sapMObjectStatusNone {
+	color: var(--fd-text);
+}
+
+/* Formular */
+.fd-form-wrap {
+	display: block;
+}
+
+.fd-form-hint {
+	font-size: 13px;
+	color: var(--fd-red);
+	margin-top: 8px;
+}
+
+.fd-save-row {
+	padding-top: 8px;
+}
+
+.fd-form-wrap .sapUiFormContainerTitle {
+	display: none;
+}
