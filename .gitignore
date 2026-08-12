@@ -1,0 +1,25 @@
+# Dependencies & build output
+node_modules/
+dist/
+project1/node_modules/
+project1/dist/
+
+# UI5 / Fiori tooling
+resources/
+.scp/
+archive.zip
+.*_mta_build_tmp
+mta_archives/
+mta-*
+Makefile*.mta
+
+# Environment & local config
+.env
+.claude/
+
+# OS / editor cruft
+.DS_Store
+*.log
+
+# Reference material (design mockups, not part of the app)
+project1/Context/

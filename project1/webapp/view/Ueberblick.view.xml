@@ -1,0 +1,59 @@
+<mvc:View controllerName="project1.controller.Ueberblick"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m">
+    <Page showHeader="false" class="fhPage" backgroundDesign="Transparent">
+        <VBox class="fhContent">
+            <core:Fragment fragmentName="project1.view.fragment.KpiRow" type="XML" />
+            <!-- ===== PAGE CONTENT ===== -->
+            <f:Card class="fhSectionCard">
+                <f:content>
+                    <VBox class="fhCardPad">
+                        <HBox justifyContent="SpaceBetween" alignItems="Start">
+                            <VBox>
+                                <HBox alignItems="Center">
+                                    <Title text="Gesamtübersicht (Statisch)" level="H3" class="sapUiTinyMarginEnd"/>
+                                    <ObjectStatus text="GESPERRT" state="Warning" inverted="true"/>
+                                </HBox>
+                                <Text text="In diesem Modus können keine Änderungen vorgenommen werden." class="fhMuted sapUiTinyMarginTop"/>
+                            </VBox>
+                            <Button text="Bericht Drucken" enabled="false" icon="sap-icon://print"/>
+                        </HBox>
+
+                        <MessageStrip text="Drucker nicht verbunden." type="Warning" showIcon="true" class="sapUiMediumMarginTop"/>
+
+                        <Toolbar class="fhDivider sapUiMediumMarginTop sapUiMediumMarginBottom" height="1px"/>
+
+                        <HBox justifyContent="SpaceBetween" alignItems="Center">
+                            <Title text="System-Diagnose" level="H4"/>
+                            <Text text="{finance>/overview/syncInfo}" class="fhMuted"/>
+                        </HBox>
+
+                        <l:Grid defaultSpan="XL6 L6 M12 S12" hSpacing="1" vSpacing="1" class="sapUiSmallMarginTop">
+                            <l:content>
+                                <f:Card class="fhSectionCard">
+                                    <f:content>
+                                        <VBox class="fhCardPad">
+                                            <Label text="Konto-Status"/>
+                                            <ObjectStatus text="Aktiv &amp; Verbunden" state="Success" class="sapUiTinyMarginTop"/>
+                                        </VBox>
+                                    </f:content>
+                                </f:Card>
+                                <f:Card class="fhSectionCard">
+                                    <f:content>
+                                        <VBox class="fhCardPad">
+                                            <Label text="Sicherheits-Check"/>
+                                            <ObjectStatus text="Bestanden" state="Success" class="sapUiTinyMarginTop"/>
+                                        </VBox>
+                                    </f:content>
+                                </f:Card>
+                            </l:content>
+                        </l:Grid>
+                    </VBox>
+                </f:content>
+            </f:Card>
+        </VBox>
+    </Page>
+</mvc:View>

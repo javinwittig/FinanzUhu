@@ -1,0 +1,37 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Popover
+        id="settingsPopover"
+        title="{i18n>settings}"
+        placement="Bottom"
+        contentWidth="20rem"
+        class="fhSettingsPopover">
+        <VBox class="sapUiContentPadding">
+            <!-- Appearance / colour scheme -->
+            <Label text="{i18n>appearance}" design="Bold" class="sapUiTinyMarginBottom" />
+            <Text text="{i18n>appearanceHint}" class="fhTextMute sapUiSmallMarginBottom" />
+            <SegmentedButton
+                width="100%"
+                selectedKey="{appView>/theme}"
+                selectionChange=".onThemeChange">
+                <items>
+                    <SegmentedButtonItem key="light" text="{i18n>themeLight}" icon="sap-icon://light-mode" />
+                    <SegmentedButtonItem key="dark" text="{i18n>themeDark}" icon="sap-icon://dark-mode" />
+                    <SegmentedButtonItem key="auto" text="{i18n>themeAuto}" icon="sap-icon://text-align-justified" />
+                </items>
+            </SegmentedButton>
+
+            <core:Icon src="sap-icon://border" visible="false" />
+            <VBox class="sapUiMediumMarginTop">
+                <HBox justifyContent="SpaceBetween" alignItems="Center">
+                    <VBox>
+                        <Label text="{i18n>compactMode}" design="Bold" />
+                        <Text text="{i18n>compactModeHint}" class="fhTextMute" />
+                    </VBox>
+                    <Switch state="{appView>/compact}" change=".onDensityChange" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </Popover>
+</core:FragmentDefinition>

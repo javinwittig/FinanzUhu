@@ -1,0 +1,65 @@
+<core:FragmentDefinition
+    xmlns="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:m="sap.m">
+    <l:Grid class="fhKpiRow" defaultSpan="XL4 L4 M4 S12" hSpacing="1" vSpacing="1">
+        <Card class="fhKpiCard">
+            <header>
+                <card:NumericHeader
+                    title="{finance>/kpis/income/labelYtd}"
+                    number="{finance>/kpis/income/value}"
+                    scale=""
+                    trend="Up"
+                    state="Good"
+                    press=".onKpiPress">
+                    <card:customData>
+                        <core:CustomData key="kpi" value="income" />
+                    </card:customData>
+                    <card:sideIndicators>
+                        <card:NumericSideIndicator title="Trend" number="{finance>/kpis/income/delta}" />
+                    </card:sideIndicators>
+                </card:NumericHeader>
+            </header>
+        </Card>
+
+        <Card class="fhKpiCard">
+            <header>
+                <card:NumericHeader
+                    title="{finance>/kpis/result/labelYtd}"
+                    number="{finance>/kpis/result/value}"
+                    scale=""
+                    trend="Up"
+                    state="Neutral"
+                    press=".onKpiPress">
+                    <card:customData>
+                        <core:CustomData key="kpi" value="result" />
+                    </card:customData>
+                    <card:sideIndicators>
+                        <card:NumericSideIndicator title="Trend" number="{finance>/kpis/result/delta}" />
+                    </card:sideIndicators>
+                </card:NumericHeader>
+            </header>
+        </Card>
+
+        <Card class="fhKpiCard">
+            <header>
+                <card:NumericHeader
+                    title="{finance>/kpis/expenses/labelYtd}"
+                    number="{finance>/kpis/expenses/value}"
+                    scale=""
+                    trend="Up"
+                    state="Error"
+                    press=".onKpiPress">
+                    <card:customData>
+                        <core:CustomData key="kpi" value="expenses" />
+                    </card:customData>
+                    <card:sideIndicators>
+                        <card:NumericSideIndicator title="Trend" number="{finance>/kpis/expenses/delta}" />
+                    </card:sideIndicators>
+                </card:NumericHeader>
+            </header>
+        </Card>
+    </l:Grid>
+</core:FragmentDefinition>

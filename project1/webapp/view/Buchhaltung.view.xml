@@ -1,0 +1,53 @@
+<mvc:View controllerName="project1.controller.Buchhaltung"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m">
+    <Page showHeader="false" class="fhPage" backgroundDesign="Transparent">
+        <VBox class="fhContent">
+            <core:Fragment fragmentName="project1.view.fragment.KpiRow" type="XML" />
+            <!-- ===== PAGE CONTENT ===== -->
+            <f:Card class="fhSectionCard">
+                <f:content>
+                    <VBox class="fhCardPad">
+                        <OverflowToolbar class="fhToolbar">
+                            <SearchField class="fhSearch" width="16rem" placeholder="{i18n>searchLedger}"/>
+                            <Select>
+                                <core:Item key="all" text="Alle Kategorien"/>
+                                <core:Item key="gehalt" text="Gehalt"/>
+                                <core:Item key="software" text="Software"/>
+                                <core:Item key="miete" text="Miete"/>
+                                <core:Item key="transport" text="Transport"/>
+                            </Select>
+                            <ToolbarSpacer/>
+                            <Button type="Emphasized" icon="sap-icon://excel-attachment" text="Excel Export" press=".onExport"/>
+                        </OverflowToolbar>
+                        <Table class="fhTable" items="{finance>/ledger}">
+                            <columns>
+                                <Column><Text text="Datum"/></Column>
+                                <Column><Text text="Herkunft"/></Column>
+                                <Column><Text text="Betrag"/></Column>
+                                <Column><Text text="Grund"/></Column>
+                                <Column><Text text="Zusätzliches"/></Column>
+                                <Column hAlign="End"><Text text="Aktionen"/></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{finance>date}"/>
+                                        <ObjectIdentifier title="{finance>party}"/>
+                                        <ObjectNumber number="{finance>amount}" state="{path:'finance>amountState', formatter:'.formatter.valueState'}"/>
+                                        <ObjectStatus text="{finance>category}" inverted="true" state="{path:'finance>categoryColor', formatter:'.formatter.badgeState'}"/>
+                                        <Text text="{finance>note}"/>
+                                        <Link text="{i18n>details}" press=".onDetails"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </VBox>
+                </f:content>
+            </f:Card>
+        </VBox>
+    </Page>
+</mvc:View>

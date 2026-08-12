@@ -1,0 +1,54 @@
+<mvc:View controllerName="project1.controller.Graph"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:vizData="sap.viz.ui5.data"
+    xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
+    xmlns="sap.m">
+    <Page showHeader="false" class="fhPage" backgroundDesign="Transparent">
+        <VBox class="fhContent">
+            <core:Fragment fragmentName="project1.view.fragment.KpiRow" type="XML" />
+
+            <f:Card class="fhSectionCard">
+                <f:content>
+                    <VBox class="fhCardPad">
+                        <OverflowToolbar class="fhToolbar">
+                            <VBox>
+                                <Title text="{i18n>graphTitle}" level="H4" />
+                                <Text text="{i18n>graphSubtitle}" class="fhTextMute" />
+                            </VBox>
+                            <ToolbarSpacer />
+                            <SegmentedButton selectedKey="monatlich">
+                                <items>
+                                    <SegmentedButtonItem key="jaehrlich" text="{i18n>periodYearly}" />
+                                    <SegmentedButtonItem key="monatlich" text="{i18n>periodMonthly}" />
+                                    <SegmentedButtonItem key="woechentlich" text="{i18n>periodWeekly}" />
+                                </items>
+                            </SegmentedButton>
+                        </OverflowToolbar>
+
+                        <viz:VizFrame id="trendChart" vizType="column" width="100%" height="320px"
+                            uiConfig="{applicationSet:'fiori'}">
+                            <viz:dataset>
+                                <vizData:FlattenedDataset data="{finance>/trend}">
+                                    <vizData:dimensions>
+                                        <vizData:DimensionDefinition name="Monat" value="{finance>month}" />
+                                    </vizData:dimensions>
+                                    <vizData:measures>
+                                        <vizData:MeasureDefinition name="Einnahmen" value="{finance>income}" />
+                                        <vizData:MeasureDefinition name="Ausgaben" value="{finance>expense}" />
+                                    </vizData:measures>
+                                </vizData:FlattenedDataset>
+                            </viz:dataset>
+                            <viz:feeds>
+                                <vizFeeds:FeedItem uid="valueAxis" type="Measure" values="Einnahmen,Ausgaben" />
+                                <vizFeeds:FeedItem uid="categoryAxis" type="Dimension" values="Monat" />
+                            </viz:feeds>
+                        </viz:VizFrame>
+                    </VBox>
+                </f:content>
+            </f:Card>
+        </VBox>
+    </Page>
+</mvc:View>

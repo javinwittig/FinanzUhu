@@ -1,0 +1,52 @@
+<mvc:View controllerName="project1.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m">
+    <Page showHeader="false" class="fhPage" backgroundDesign="Transparent">
+        <VBox class="fhContent">
+            <core:Fragment fragmentName="project1.view.fragment.KpiRow" type="XML" />
+
+            <f:Card class="fhSectionCard">
+                <f:content>
+                    <VBox class="fhCardPad">
+                        <!-- Profile head -->
+                        <HBox alignItems="Center" class="fhProfileHead">
+                            <Avatar initials="AW" displaySize="L" backgroundColor="Accent6" class="sapUiTinyMarginEnd" />
+                            <VBox justifyContent="Center">
+                                <HBox alignItems="Center">
+                                    <Title text="{finance>/app/user/fullName}" level="H3" class="sapUiTinyMarginEnd" />
+                                    <ObjectStatus text="{finance>/app/user/tier}" state="Information" inverted="true" />
+                                </HBox>
+                                <Text text="{finance>/app/user/email}" class="fhTextSoft" />
+                                <Text text="{finance>/app/user/member}" class="fhTextMute" />
+                            </VBox>
+                        </HBox>
+
+                        <l:Grid defaultSpan="XL4 L4 M4 S12" hSpacing="1" vSpacing="1" class="sapUiSmallMarginTop">
+                            <VBox>
+                                <Label text="{i18n>lastLogin}" class="fhTextMute" />
+                                <Text text="{finance>/app/user/lastLogin}" class="fhStatValue" />
+                            </VBox>
+                            <VBox alignItems="Center">
+                                <Label text="{i18n>securityLevel}" class="fhTextMute" />
+                                <ObjectStatus text="{finance>/app/user/security}" state="Success" />
+                            </VBox>
+                            <VBox alignItems="End">
+                                <Label text="{i18n>dataState}" class="fhTextMute" />
+                                <Text text="{finance>/app/user/dataState}" class="fhStatValue" />
+                            </VBox>
+                        </l:Grid>
+
+                        <Button text="{i18n>profileManage}"
+                            type="Emphasized"
+                            width="100%"
+                            class="sapUiSmallMarginTop"
+                            press=".onManageProfile" />
+                    </VBox>
+                </f:content>
+            </f:Card>
+        </VBox>
+    </Page>
+</mvc:View>

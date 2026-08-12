@@ -1,0 +1,60 @@
+<mvc:View controllerName="project1.controller.App"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="rootPage" showHeader="true" class="fhRootPage" backgroundDesign="Solid">
+        <customHeader>
+            <f:ShellBar
+                title="{i18n>brand}"
+                secondaryTitle="{appView>/title}"
+                showNotifications="true"
+                notificationsNumber="3"
+                notificationsPressed=".onNotifications"
+                avatarPressed=".onOpenProfile"
+                homePressed=".onNavHome">
+                <f:additionalContent>
+                    <OverflowToolbarButton
+                        id="settingsButton"
+                        icon="sap-icon://action-settings"
+                        text="{i18n>settings}"
+                        tooltip="{i18n>settings}"
+                        type="Transparent"
+                        press=".onOpenSettings" />
+                </f:additionalContent>
+                <f:profile>
+                    <Avatar initials="AW" displaySize="XS" backgroundColor="Accent6" />
+                </f:profile>
+            </f:ShellBar>
+        </customHeader>
+
+        <!-- Router renders the page views into this nested App -->
+        <App id="app" />
+
+        <footer>
+            <Toolbar class="fhNavToolbar" height="3.75rem">
+                <ToolbarSpacer />
+                <IconTabBar
+                    id="bottomNav"
+                    class="fhBottomNav"
+                    selectedKey="{path: 'appView>/nav', mode: 'OneWay'}"
+                    select=".onNavSelect"
+                    expandable="false"
+                    stretchContentHeight="false"
+                    backgroundDesign="Transparent"
+                    headerBackgroundDesign="Transparent"
+                    headerMode="Inline">
+                    <items>
+                        <IconTabFilter key="start" text="{i18n>navStart}" icon="sap-icon://home" />
+                        <IconTabFilter key="eingabe" text="{i18n>navEingabe}" icon="sap-icon://add" />
+                        <IconTabFilter key="buchhaltung" text="{i18n>navBuchhaltung}" icon="sap-icon://receipt" />
+                        <IconTabFilter key="kreisdiagramm" text="{i18n>navKreisdiagramm}" icon="sap-icon://pie-chart" />
+                        <IconTabFilter key="graph" text="{i18n>navGraph}" icon="sap-icon://line-chart" />
+                    </items>
+                </IconTabBar>
+                <ToolbarSpacer />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

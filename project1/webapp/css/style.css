@@ -1,0 +1,72 @@
+/* ===========================================================================
+   FinanzUhu — accents on top of sap_horizon / sap_horizon_dark.
+   Real Fiori controls + the active theme do the heavy lifting; this file adds
+   the centered content column, small brand touches, and responsive tuning.
+   =========================================================================== */
+
+/* Centered content column shared by every page */
+.fhContent {
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+  box-sizing: border-box;
+}
+
+/* KPI card row */
+.fhKpiRow { margin-bottom: 0.5rem; }
+.fhKpiCard { cursor: pointer; }
+
+/* Section cards get comfortable inner padding */
+.fhCardPad { padding: 1.25rem 1.5rem; }
+.fhSectionCard { margin-top: 0.5rem; }
+
+/* Toolbars above tables/charts: transparent, no border */
+.fhToolbar.sapMTB { background: transparent; border: none; padding-left: 0; padding-right: 0; }
+
+/* Profile head on Home */
+.fhProfileHead { margin-bottom: 0.5rem; }
+.fhStatValue { font-weight: 700; }
+
+/* Category list rows (Kreisdiagramm) */
+.fhCatRow { width: 100%; padding: 0.25rem 0; }
+.fhCatPct { font-weight: 700; min-width: 3rem; text-align: right; }
+
+/* Donut wrapper keeps the VizFrame centered */
+.fhDonutWrap { position: relative; }
+
+/* Muted / soft text helpers (opacity keeps them theme-aware in light & dark) */
+.fhTextMute { opacity: 0.65; font-size: 0.82rem; }
+.fhTextSoft { opacity: 0.85; }
+
+/* Bottom navigation: keep just the strip, centered */
+.fhNavToolbar.sapMTB { background: transparent; border: none; }
+.fhBottomNav .sapMITBContent { display: none; }
+.fhBottomNav .sapMITBHead { justify-content: center; }
+
+/* ---------------------------------------------------------------------------
+   Responsive tuning
+   --------------------------------------------------------------------------- */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .fhContent { padding: 0.75rem 1rem 1.25rem 1rem; }
+  .fhCardPad { padding: 1rem 1.15rem; }
+}
+
+/* Phone */
+@media (max-width: 600px) {
+  .fhContent { padding: 0.5rem 0.5rem 1rem 0.5rem; }
+  .fhCardPad { padding: 0.85rem 0.9rem; }
+
+  /* Let bottom-nav labels wrap out on very small screens — icons stay */
+  .fhBottomNav .sapMITBText { font-size: 0.7rem; }
+  .fhBottomNav .sapMITBFilter { min-width: 3.25rem; }
+
+  /* Charts: give a little more vertical room on narrow viewports */
+  .fhDonutWrap { height: auto !important; }
+}
+
+/* The nested App/pages must fill the height between shell header and footer */
+html, body, .fhRootPage, .fhRootPage > section { height: 100%; }
+.fhPage .sapMPageEnableScrolling { -webkit-overflow-scrolling: touch; }

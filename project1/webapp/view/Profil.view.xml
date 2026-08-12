@@ -1,0 +1,62 @@
+<mvc:View controllerName="project1.controller.Profil"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <Page showHeader="false" class="fhPage" backgroundDesign="Transparent">
+        <VBox class="fhContent">
+            <core:Fragment fragmentName="project1.view.fragment.KpiRow" type="XML" />
+            <!-- ===== PAGE CONTENT ===== -->
+            <l:Grid defaultSpan="XL6 L6 M12 S12" hSpacing="1" vSpacing="1">
+                <!-- LEFT: Benutzerdaten -->
+                <f:Card class="fhSectionCard">
+                    <f:content>
+                        <VBox class="fhCardPad">
+                            <form:SimpleForm layout="ResponsiveGridLayout"
+                                columnsL="1" columnsM="1"
+                                labelSpanL="4" labelSpanM="4"
+                                editable="true" title="Benutzerdaten">
+                                <Label text="Name"/>
+                                <Input value="{finance>/app/user/displayName}"/>
+                                <Label text="E-Mail"/>
+                                <Input value="{finance>/app/user/profileEmail}"/>
+                                <Label text="Passwort ändern"/>
+                                <Input type="Password" value="password123"/>
+                                <Label text="Zwei-Faktor-Authentisierung"/>
+                                <Switch state="{finance>/app/user/twoFactor}"/>
+                            </form:SimpleForm>
+                            <Button type="Emphasized" width="100%" text="Speichern" press=".onSave"/>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+                <!-- RIGHT: Profilbild und Praeferenzen -->
+                <f:Card class="fhSectionCard">
+                    <f:content>
+                        <VBox class="fhCardPad">
+                            <VBox alignItems="Center" justifyContent="Center" class="sapUiSmallMarginBottom">
+                                <Avatar displaySize="XL" initials="AW"/>
+                                <Button type="Transparent" text="Bild ändern" press=".onChangePicture"/>
+                            </VBox>
+                            <HBox justifyContent="SpaceBetween" alignItems="Center" width="100%" class="sapUiSmallMarginBottom">
+                                <VBox>
+                                    <Text text="E-Mail Benachrichtigungen" class="fhTextBold"/>
+                                    <Text text="Wöchentlicher Report" class="fhTextMuted"/>
+                                </VBox>
+                                <Switch state="{finance>/app/user/emailNotifications}"/>
+                            </HBox>
+                            <HBox justifyContent="SpaceBetween" alignItems="Center" width="100%">
+                                <VBox>
+                                    <Text text="Push-Nachrichten" class="fhTextBold"/>
+                                    <Text text="Bei hohen Transaktionen" class="fhTextMuted"/>
+                                </VBox>
+                                <Switch state="{finance>/app/user/pushNotifications}"/>
+                            </HBox>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+            </l:Grid>
+        </VBox>
+    </Page>
+</mvc:View>

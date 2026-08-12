@@ -1,0 +1,43 @@
+<mvc:View controllerName="project1.controller.Eingabe"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m">
+    <Page showHeader="false" class="fhPage" backgroundDesign="Transparent">
+        <VBox class="fhContent">
+            <core:Fragment fragmentName="project1.view.fragment.KpiRow" type="XML" />
+            <!-- ===== PAGE CONTENT ===== -->
+            <f:Card class="fhSectionCard">
+                <f:content>
+                    <VBox class="fhCardPad">
+                        <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                            <f:Avatar displaySize="S" icon="sap-icon://add" backgroundColor="Accent6"/>
+                            <VBox class="sapUiSmallMarginBegin">
+                                <Title text="Finanztransaktion erfassen"/>
+                                <Text class="fhMuted" text="Tragen Sie hier eine neue Einnahme oder Ausgabe ein."/>
+                            </VBox>
+                        </HBox>
+                        <form:SimpleForm layout="ResponsiveGridLayout" columnsL="2" columnsM="2"
+                            labelSpanL="4" labelSpanM="4" editable="true">
+                            <Label text="Datum"/>
+                            <DatePicker value="{finance>/newEntry/date}" displayFormat="dd.MM.yyyy" valueFormat="dd.MM.yyyy"/>
+                            <Label text="Herkunft"/>
+                            <Input value="{finance>/newEntry/party}"/>
+                            <Label text="Betrag"/>
+                            <Input value="{finance>/newEntry/amount}"/>
+                            <Label text="Grund"/>
+                            <Select selectedKey="{finance>/newEntry/reason}" items="{finance>/reasons}">
+                                <core:Item key="{finance>key}" text="{finance>text}"/>
+                            </Select>
+                            <Label text="Zusätzliches"/>
+                            <TextArea rows="3" value="{finance>/newEntry/extra}"/>
+                        </form:SimpleForm>
+                        <Button type="Accept" width="100%" text="Hinzufügen" press=".onAdd" class="sapUiSmallMarginTop"/>
+                    </VBox>
+                </f:content>
+            </f:Card>
+        </VBox>
+    </Page>
+</mvc:View>

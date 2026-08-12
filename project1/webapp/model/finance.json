@@ -1,0 +1,120 @@
+{
+  "app": {
+    "brand": "FinanzUhu",
+    "user": {
+      "shortName": "A. Weber",
+      "fullName": "Alexander Weber",
+      "displayName": "Dr. Alexander Weber",
+      "email": "alexander.weber@finanzboard.de",
+      "profileEmail": "alexander.weber@contralabs.de",
+      "member": "Mitglied seit Oktober 2021",
+      "tier": "PREMIUM",
+      "lastLogin": "Heute, 14:32 Uhr",
+      "security": "Sehr hoch (2FA)",
+      "dataState": "Live synchronisiert",
+      "twoFactor": true,
+      "emailNotifications": true,
+      "pushNotifications": false
+    },
+    "liveMode": true,
+    "locked": false
+  },
+  "kpis": {
+    "income": { "label": "Einnahmen", "labelYtd": "Einnahmen YTD", "value": "€ 12.450", "delta": "+14.2%", "state": "positive" },
+    "result": { "label": "Ergebnis", "labelYtd": "Ergebnis (Gewinn)", "value": "€ 4.280", "delta": "+4.8%", "state": "information" },
+    "expenses": { "label": "Ausgaben", "labelYtd": "Ausgaben YTD", "value": "€ 8.170", "delta": "+8.5%", "state": "negative" }
+  },
+  "ledger": [
+    { "date": "14.10.2024", "party": "Musterfirma GmbH", "amount": "€ 4.500,00", "amountState": "positive", "category": "Gehalt", "categoryColor": "green", "note": "Festgehalt Oktober", "type": "income" },
+    { "date": "12.10.2024", "party": "Adobe Systems", "amount": "€ -35,69", "amountState": "negative", "category": "Software", "categoryColor": "red", "note": "Creative Cloud Abo", "type": "expense" },
+    { "date": "10.10.2024", "party": "EDEKA Center", "amount": "€ -124,50", "amountState": "negative", "category": "Lebensmittel", "categoryColor": "red", "note": "Wocheneinkauf Haushalt", "type": "expense" },
+    { "date": "08.10.2024", "party": "Freelance Client", "amount": "€ 850,00", "amountState": "positive", "category": "Projekt", "categoryColor": "green", "note": "Beratung Web-Plattform", "type": "income" },
+    { "date": "05.10.2024", "party": "Allianz SE", "amount": "€ -89,00", "amountState": "negative", "category": "Versicherung", "categoryColor": "red", "note": "Haftpflichtversicherung", "type": "expense" },
+    { "date": "01.10.2024", "party": "Vermieter Meyer", "amount": "€ -1.200,00", "amountState": "negative", "category": "Miete", "categoryColor": "red", "note": "Warmmiete Wohnung", "type": "expense" },
+    { "date": "28.09.2024", "party": "Shell Tankstelle", "amount": "€ -75,00", "amountState": "negative", "category": "Transport", "categoryColor": "red", "note": "Tankfüllung Dienstwagen", "type": "expense" }
+  ],
+  "income": [
+    { "date": "14.10.2024", "party": "Musterfirma GmbH", "amount": "€ 4.500,00", "category": "Gehalt", "categoryColor": "green", "note": "Festgehalt Oktober" },
+    { "date": "12.10.2024", "party": "Freelance Client A", "amount": "€ 1.850,00", "category": "Projekt", "categoryColor": "green", "note": "Konzeption Web-Plattform" },
+    { "date": "08.10.2024", "party": "Freelance Client B", "amount": "€ 850,00", "category": "Projekt", "categoryColor": "green", "note": "Projektberatung Audit" },
+    { "date": "05.10.2024", "party": "Allianz SE Ausschüttung", "amount": "€ 420,00", "category": "Dividende", "categoryColor": "green", "note": "Dividenden Q3" },
+    { "date": "01.10.2024", "party": "Ebay Kleinanzeigen", "amount": "€ 180,00", "category": "Sonstiges", "categoryColor": "green", "note": "Verkauf Monitor alt" },
+    { "date": "28.09.2024", "party": "Musterfirma GmbH", "amount": "€ 4.500,00", "category": "Gehalt", "categoryColor": "green", "note": "Festgehalt September" },
+    { "date": "15.09.2024", "party": "Finanzamt Steuerrück", "amount": "€ 150,00", "category": "Zinsen", "categoryColor": "green", "note": "Zinsrückerstattung" }
+  ],
+  "expenses": [
+    { "date": "12.10.2024", "party": "Adobe Systems", "amount": "€ -35,69", "category": "Software", "categoryColor": "red", "note": "Creative Cloud Abo" },
+    { "date": "10.10.2024", "party": "EDEKA Center", "amount": "€ -124,50", "category": "Lebensmittel", "categoryColor": "red", "note": "Wocheneinkauf Haushalt" },
+    { "date": "05.10.2024", "party": "Allianz SE", "amount": "€ -89,00", "category": "Versicherung", "categoryColor": "red", "note": "Haftpflichtversicherung" },
+    { "date": "01.10.2024", "party": "Vermieter Meyer", "amount": "€ -1.200,00", "category": "Miete", "categoryColor": "red", "note": "Warmmiete Wohnung" },
+    { "date": "28.09.2024", "party": "Shell Tankstelle", "amount": "€ -75,00", "category": "Transport", "categoryColor": "red", "note": "Tankfüllung Dienstwagen" },
+    { "date": "25.09.2024", "party": "DB Vertrieb GmbH", "amount": "€ -49,00", "category": "Transport", "categoryColor": "red", "note": "Deutschlandticket" },
+    { "date": "20.09.2024", "party": "AWS Cloud Services", "amount": "€ -210,40", "category": "Infrastruktur", "categoryColor": "red", "note": "Hosting Infrastruktur" },
+    { "date": "18.09.2024", "party": "Gym Fit Life", "amount": "€ -50,00", "category": "Freizeit", "categoryColor": "red", "note": "Mitgliedsbeitrag" }
+  ],
+  "categories": [
+    { "name": "Miete", "value": 1200, "amount": "€ 1.200", "percent": "40%", "color": "#3d7dff" },
+    { "name": "Gehälter", "value": 4500, "amount": "€ 4.500", "percent": "30%", "color": "#28c76f" },
+    { "name": "Marketing", "value": 1500, "amount": "€ 1.500", "percent": "15%", "color": "#ea5455" },
+    { "name": "Versicherung", "value": 600, "amount": "€ 600", "percent": "10%", "color": "#00cfe8" },
+    { "name": "Sonstiges", "value": 370, "amount": "€ 370", "percent": "5%", "color": "#ffce54" }
+  ],
+  "donut": { "total": "€ 8.170", "totalLabel": "Gesamtausgaben" },
+  "trend": [
+    { "month": "Jan", "income": 3200, "expense": 2100 },
+    { "month": "Feb", "income": 3600, "expense": 2300 },
+    { "month": "Mär", "income": 4100, "expense": 2500 },
+    { "month": "Apr", "income": 5200, "expense": 3100 },
+    { "month": "Mai", "income": 4300, "expense": 2600 },
+    { "month": "Jun", "income": 6100, "expense": 3300 },
+    { "month": "Jul", "income": 7400, "expense": 3600 },
+    { "month": "Aug", "income": 8600, "expense": 4200 },
+    { "month": "Sep", "income": 7300, "expense": 3800 },
+    { "month": "Okt", "income": 8200, "expense": 4100 },
+    { "month": "Nov", "income": 9800, "expense": 4400 },
+    { "month": "Dez", "income": 10600, "expense": 4700 }
+  ],
+  "resultDetail": {
+    "netValue": "€ 4.280,00",
+    "hint": "Sie liegen € 1.150 über dem Vorjahres-Schnitt (Sehr Gut)",
+    "series": [1200, 1500, 1300, 2100, 2000, 1400, 3200, 3100, 1900, 3600, 4000, 4280],
+    "remainingQuote": "34,3%",
+    "remainingValue": 34.3,
+    "totalIncome": "€ 12.450",
+    "totalIncomeValue": 100,
+    "totalExpenses": "€ 8.170",
+    "totalExpensesValue": 66,
+    "tipTitle": "System-Tipp",
+    "tip": "Deine Sparrate ist diesen Monat hervorragend. Nutze Überschüsse für Rücklagen."
+  },
+  "overview": {
+    "status": "GESPERRT",
+    "title": "Gesamtübersicht (Statisch)",
+    "subtitle": "In diesem Modus können keine Änderungen vorgenommen werden.",
+    "printerHint": "Drucker nicht verbunden.",
+    "diagnosisTitle": "System-Diagnose",
+    "syncInfo": "Letzte Synchronisierung vor 2 Minuten",
+    "accountStatusLabel": "Konto-Status",
+    "accountStatus": "Aktiv & Verbunden",
+    "securityCheckLabel": "Sicherheits-Check",
+    "securityCheck": "Bestanden"
+  },
+  "newEntry": {
+    "date": "14.10.2024",
+    "party": "Musterfirma GmbH",
+    "amount": "€ 1.250,00",
+    "reason": "Gehalt",
+    "extra": "Monatliche Vergütung für Beratungsdienstleistungen"
+  },
+  "reasons": [
+    { "key": "Gehalt", "text": "Gehalt" },
+    { "key": "Projekt", "text": "Projekt" },
+    { "key": "Miete", "text": "Miete" },
+    { "key": "Lebensmittel", "text": "Lebensmittel" },
+    { "key": "Software", "text": "Software" },
+    { "key": "Versicherung", "text": "Versicherung" },
+    { "key": "Transport", "text": "Transport" },
+    { "key": "Dividende", "text": "Dividende" },
+    { "key": "Sonstiges", "text": "Sonstiges" }
+  ]
+}

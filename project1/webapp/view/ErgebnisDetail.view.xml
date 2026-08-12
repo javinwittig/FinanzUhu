@@ -1,0 +1,70 @@
+<mvc:View controllerName="project1.controller.ErgebnisDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns:mc="sap.suite.ui.microchart"
+    xmlns="sap.m">
+    <Page showHeader="false" class="fhPage" backgroundDesign="Transparent">
+        <VBox class="fhContent">
+            <core:Fragment fragmentName="project1.view.fragment.KpiRow" type="XML" />
+            <!-- ===== PAGE CONTENT ===== -->
+            <l:Grid defaultSpan="XL8 L8 M12 S12" hSpacing="1" vSpacing="1">
+                <!-- LEFT: Netto Cashflow Ergebnis + Ergebnisentwicklung -->
+                <f:Card class="fhSectionCard">
+                    <f:content>
+                        <VBox class="fhCardPad">
+                            <Label text="NETTO CASHFLOW ERGEBNIS"/>
+                            <Title text="{finance>/resultDetail/netValue}" level="H1"/>
+                            <Text class="sapUiTinyMarginTop" text="{finance>/resultDetail/hint}"/>
+                            <Title class="sapUiMediumMarginTop" text="Ergebnisentwicklung (12 Mon.)" level="H4"/>
+                            <mc:ColumnMicroChart size="M" height="9rem" width="100%">
+                                <mc:columns>
+                                    <mc:ColumnMicroChartData value="1200" color="Good"/>
+                                    <mc:ColumnMicroChartData value="1500" color="Good"/>
+                                    <mc:ColumnMicroChartData value="1300" color="Good"/>
+                                    <mc:ColumnMicroChartData value="2100" color="Good"/>
+                                    <mc:ColumnMicroChartData value="2000" color="Good"/>
+                                    <mc:ColumnMicroChartData value="1400" color="Good"/>
+                                    <mc:ColumnMicroChartData value="3200" color="Good"/>
+                                    <mc:ColumnMicroChartData value="3100" color="Good"/>
+                                    <mc:ColumnMicroChartData value="1900" color="Good"/>
+                                    <mc:ColumnMicroChartData value="3600" color="Good"/>
+                                    <mc:ColumnMicroChartData value="4000" color="Good"/>
+                                    <mc:ColumnMicroChartData value="4280" color="Good"/>
+                                </mc:columns>
+                            </mc:ColumnMicroChart>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+                <!-- RIGHT: Finanz-Abstimmung -->
+                <f:Card class="fhSectionCard">
+                    <f:layoutData>
+                        <l:GridData span="XL4 L4 M12 S12"/>
+                    </f:layoutData>
+                    <f:content>
+                        <VBox class="fhCardPad">
+                            <Title text="Finanz-Abstimmung" level="H4"/>
+                            <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginTop">
+                                <Label text="Verbleibende Quote"/>
+                                <Text text="34,3%"/>
+                            </HBox>
+                            <ProgressIndicator percentValue="34.3" displayValue="34,3%" state="Information" showValue="true"/>
+                            <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginTop">
+                                <Label text="Gesamteinnahmen"/>
+                                <Text text="€ 12.450"/>
+                            </HBox>
+                            <ProgressIndicator percentValue="100" displayValue="€ 12.450" state="Success" showValue="true"/>
+                            <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginTop">
+                                <Label text="Gesamtausgaben"/>
+                                <Text text="€ 8.170"/>
+                            </HBox>
+                            <ProgressIndicator percentValue="66" displayValue="€ 8.170" state="Error" showValue="true"/>
+                            <MessageStrip class="sapUiMediumMarginTop" type="Information" showIcon="true" text="{finance>/resultDetail/tip}"/>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+            </l:Grid>
+        </VBox>
+    </Page>
+</mvc:View>

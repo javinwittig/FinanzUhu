@@ -1,0 +1,117 @@
+{
+  "_version": "1.83.0",
+  "sap.app": {
+    "id": "project1",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.22.0",
+      "toolsId": "5e478643-ed3d-45ad-b48d-aa6cd5afddb8"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.151.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ui.layout": {},
+        "sap.f": {},
+        "sap.suite.ui.microchart": {},
+        "sap.viz": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "project1.i18n.i18n",
+          "supportedLocales": [""],
+          "fallbackLocale": ""
+        }
+      },
+      "finance": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/finance.json"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "project1.view",
+        "async": true,
+        "viewPath": "project1.view"
+      },
+      "routes": [
+        { "name": "home", "pattern": "", "target": ["home"] },
+        { "name": "profil", "pattern": "profil", "target": ["profil"] },
+        { "name": "eingabe", "pattern": "eingabe", "target": ["eingabe"] },
+        { "name": "buchhaltung", "pattern": "buchhaltung", "target": ["buchhaltung"] },
+        { "name": "kreisdiagramm", "pattern": "kreisdiagramm", "target": ["kreisdiagramm"] },
+        { "name": "graph", "pattern": "graph", "target": ["graph"] },
+        { "name": "einnahmen", "pattern": "einnahmen", "target": ["einnahmen"] },
+        { "name": "ausgaben", "pattern": "ausgaben", "target": ["ausgaben"] },
+        { "name": "ergebnis", "pattern": "ergebnis", "target": ["ergebnis"] },
+        { "name": "ueberblick", "pattern": "ueberblick", "target": ["ueberblick"] }
+      ],
+      "targets": {
+        "home": { "id": "Home", "name": "Home" },
+        "profil": { "id": "Profil", "name": "Profil" },
+        "eingabe": { "id": "Eingabe", "name": "Eingabe" },
+        "buchhaltung": { "id": "Buchhaltung", "name": "Buchhaltung" },
+        "kreisdiagramm": { "id": "Kreisdiagramm", "name": "Kreisdiagramm" },
+        "graph": { "id": "Graph", "name": "Graph" },
+        "einnahmen": { "id": "EinnahmenDetail", "name": "EinnahmenDetail" },
+        "ausgaben": { "id": "AusgabenDetail", "name": "AusgabenDetail" },
+        "ergebnis": { "id": "ErgebnisDetail", "name": "ErgebnisDetail" },
+        "ueberblick": { "id": "Ueberblick", "name": "Ueberblick" }
+      }
+    },
+    "rootView": {
+      "viewName": "project1.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}

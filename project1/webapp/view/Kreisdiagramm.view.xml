@@ -1,0 +1,81 @@
+<mvc:View controllerName="project1.controller.Kreisdiagramm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:vizData="sap.viz.ui5.data"
+    xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
+    xmlns="sap.m">
+    <Page showHeader="false" class="fhPage" backgroundDesign="Transparent">
+        <VBox class="fhContent">
+            <core:Fragment fragmentName="project1.view.fragment.KpiRow" type="XML" />
+
+            <f:Card class="fhSectionCard">
+                <f:content>
+                    <VBox class="fhCardPad">
+                        <!-- Toolbar: period toggle + measure select -->
+                        <OverflowToolbar class="fhToolbar">
+                            <SegmentedButton selectedKey="monatlich">
+                                <items>
+                                    <SegmentedButtonItem key="jaehrlich" text="{i18n>periodYearly}" />
+                                    <SegmentedButtonItem key="monatlich" text="{i18n>periodMonthly}" />
+                                    <SegmentedButtonItem key="woechentlich" text="{i18n>periodWeekly}" />
+                                </items>
+                            </SegmentedButton>
+                            <ToolbarSpacer />
+                            <Select selectedKey="ausgaben">
+                                <core:Item key="ausgaben" text="{i18n>showExpenses}" />
+                            </Select>
+                        </OverflowToolbar>
+
+                        <l:Grid defaultSpan="XL5 L5 M12 S12" hSpacing="2" vSpacing="1">
+                            <!-- Donut with centered total overlay -->
+                            <VBox height="320px" alignItems="Center" justifyContent="Center" class="fhDonutWrap">
+                                <viz:VizFrame id="donutChart" vizType="donut" width="300px" height="300px"
+                                    uiConfig="{applicationSet:'fiori'}">
+                                    <viz:dataset>
+                                        <vizData:FlattenedDataset data="{finance>/categories}">
+                                            <vizData:dimensions>
+                                                <vizData:DimensionDefinition name="Kategorie" value="{finance>name}" />
+                                            </vizData:dimensions>
+                                            <vizData:measures>
+                                                <vizData:MeasureDefinition name="Betrag" value="{finance>value}" />
+                                            </vizData:measures>
+                                        </vizData:FlattenedDataset>
+                                    </viz:dataset>
+                                    <viz:feeds>
+                                        <vizFeeds:FeedItem uid="size" type="Measure" values="Betrag" />
+                                        <vizFeeds:FeedItem uid="color" type="Dimension" values="Kategorie" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </VBox>
+
+                            <!-- Category breakdown list -->
+                            <VBox>
+                                <layoutData>
+                                    <l:GridData span="XL7 L7 M12 S12" />
+                                </layoutData>
+                                <Title text="{i18n>categoryOverview}" level="H4" class="sapUiSmallMarginBottom" />
+                                <List items="{finance>/categories}" showSeparators="Inner" class="fhCatList">
+                                    <CustomListItem>
+                                        <HBox alignItems="Center" justifyContent="SpaceBetween" class="fhCatRow">
+                                            <HBox alignItems="Center">
+                                                <core:Icon src="sap-icon://circle-task-2" color="{finance>color}" size="0.7rem" class="sapUiTinyMarginEnd" />
+                                                <Text text="{finance>name}" />
+                                            </HBox>
+                                            <HBox alignItems="Center">
+                                                <ObjectNumber number="{finance>amount}" class="sapUiMediumMarginEnd fhTextSoft" />
+                                                <Text text="{finance>percent}" class="fhCatPct" />
+                                            </HBox>
+                                        </HBox>
+                                    </CustomListItem>
+                                </List>
+                            </VBox>
+                        </l:Grid>
+                    </VBox>
+                </f:content>
+            </f:Card>
+        </VBox>
+    </Page>
+</mvc:View>
