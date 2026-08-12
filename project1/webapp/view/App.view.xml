@@ -1,33 +1,12 @@
 <mvc:View controllerName="project1.controller.App"
     displayBlock="true"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:f="sap.f"
-    xmlns:core="sap.ui.core"
     xmlns="sap.m">
-    <Page id="rootPage" showHeader="true" class="fhRootPage" backgroundDesign="Solid">
-        <customHeader>
-            <f:ShellBar
-                title="{i18n>brand}"
-                secondaryTitle="{appView>/title}"
-                showNotifications="true"
-                notificationsNumber="3"
-                notificationsPressed=".onNotifications"
-                avatarPressed=".onOpenProfile"
-                homePressed=".onNavHome">
-                <f:additionalContent>
-                    <OverflowToolbarButton
-                        id="settingsButton"
-                        icon="sap-icon://action-settings"
-                        text="{i18n>settings}"
-                        tooltip="{i18n>settings}"
-                        type="Transparent"
-                        press=".onOpenSettings" />
-                </f:additionalContent>
-                <f:profile>
-                    <Avatar initials="AW" displaySize="XS" backgroundColor="Accent6" />
-                </f:profile>
-            </f:ShellBar>
-        </customHeader>
+    <!-- The app runs inside the FLP Sandbox, whose shell header is used as the
+         application header. The custom ShellBar was removed; its features
+         (title, settings, notifications) are pushed into the sandbox shell
+         header via ShellUIService in App.controller.js. -->
+    <Page id="rootPage" showHeader="false" class="fhRootPage" backgroundDesign="Solid">
 
         <!-- Router renders the page views into this nested App -->
         <App id="app" />

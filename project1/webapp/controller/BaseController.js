@@ -73,9 +73,10 @@ sap.ui.define([
         /**
          * Show a translated toast message.
          * @param {string} sKey i18n key
+         * @param {array} [aArgs] optional arguments for the message text
          */
-        toast: function (sKey) {
-            MessageToast.show(this.getBundle().getText(sKey));
+        toast: function (sKey, aArgs) {
+            MessageToast.show(this.getBundle().getText(sKey, aArgs));
         }
     });
 });

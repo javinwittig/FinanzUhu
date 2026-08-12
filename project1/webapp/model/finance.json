@@ -100,9 +100,10 @@
     "securityCheck": "Bestanden"
   },
   "newEntry": {
+    "type": "income",
     "date": "14.10.2024",
     "party": "Musterfirma GmbH",
-    "amount": "€ 1.250,00",
+    "amount": "1250,00",
     "reason": "Gehalt",
     "extra": "Monatliche Vergütung für Beratungsdienstleistungen"
   },

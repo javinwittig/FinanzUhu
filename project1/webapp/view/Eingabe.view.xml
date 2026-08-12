@@ -4,6 +4,7 @@
     xmlns:f="sap.f"
     xmlns:l="sap.ui.layout"
     xmlns:form="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
     xmlns="sap.m">
     <Page showHeader="false" class="fhPage" backgroundDesign="Transparent">
         <VBox class="fhContent">
@@ -19,14 +20,31 @@
                                 <Text class="fhMuted" text="Tragen Sie hier eine neue Einnahme oder Ausgabe ein."/>
                             </VBox>
                         </HBox>
+                        <HBox alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
+                            <VBox>
+                                <Title text="{i18n>importTitle}" level="H4"/>
+                                <Text class="fhMuted" text="{i18n>importSubtitle}"/>
+                            </VBox>
+                            <u:FileUploader id="fileUploader" uploadOnChange="false" buttonText="{i18n>importFile}"
+                                icon="sap-icon://upload" buttonOnly="true" mimeType="text/csv,application/json"
+                                tooltip="{i18n>importHint}" change=".onImport" class="sapUiSmallMarginBegin"/>
+                        </HBox>
+                        <Text class="fhMuted sapUiSmallMarginBottom" text="{i18n>importHint}"/>
                         <form:SimpleForm layout="ResponsiveGridLayout" columnsL="2" columnsM="2"
                             labelSpanL="4" labelSpanM="4" editable="true">
+                            <Label text="Typ"/>
+                            <SegmentedButton selectedKey="{finance>/newEntry/type}">
+                                <items>
+                                    <SegmentedButtonItem key="income" icon="sap-icon://loan" text="Einnahme"/>
+                                    <SegmentedButtonItem key="expense" icon="sap-icon://money-bills" text="Ausgabe"/>
+                                </items>
+                            </SegmentedButton>
                             <Label text="Datum"/>
                             <DatePicker value="{finance>/newEntry/date}" displayFormat="dd.MM.yyyy" valueFormat="dd.MM.yyyy"/>
                             <Label text="Herkunft"/>
-                            <Input value="{finance>/newEntry/party}"/>
+                            <Input value="{finance>/newEntry/party}" placeholder="z.B. Musterfirma GmbH"/>
                             <Label text="Betrag"/>
-                            <Input value="{finance>/newEntry/amount}"/>
+                            <Input value="{finance>/newEntry/amount}" placeholder="z.B. 1250,00" description="€" textAlign="End"/>
                             <Label text="Grund"/>
                             <Select selectedKey="{finance>/newEntry/reason}" items="{finance>/reasons}">
                                 <core:Item key="{finance>key}" text="{finance>text}"/>

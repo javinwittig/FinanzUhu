@@ -1,8 +1,9 @@
 sap.ui.define([
     "project1/controller/BaseController",
     "project1/model/themeHelper",
-    "sap/ui/core/Fragment"
-], function (BaseController, themeHelper, Fragment) {
+    "sap/ui/core/Fragment",
+    "sap/ushell/ui/shell/ShellHeadItem"
+], function (BaseController, themeHelper, Fragment, ShellHeadItem) {
     "use strict";
 
     // Per-route shell configuration: page title, active bottom-nav key, and
@@ -26,10 +27,13 @@ sap.ui.define([
             this.getRouter().attachRouteMatched(this._onRouteMatched, this);
             // apply the initial content density (compact by default)
             this._applyDensity(this.getOwnerComponent().getModel("appView").getProperty("/compact"));
+            // Move the former ShellBar features (title, settings, notifications)
+            // into the FLP Sandbox shell header that the app runs inside of.
+            this._initSandboxHeader();
         },
 
         /**
-         * Keep the single ShellBar title + bottom IconTabBar selection in sync
+         * Keep the single shell title + bottom IconTabBar selection in sync
          * with the active route.
          * @param {sap.ui.base.Event} oEvent the routeMatched event
          */
@@ -40,6 +44,51 @@ sap.ui.define([
             oModel.setProperty("/title", oCfg.title);
             oModel.setProperty("/nav", oCfg.nav);
             oModel.setProperty("/showLive", oCfg.showLive);
+            // Mirror the route title into the FLP Sandbox shell header.
+            if (this._oShellUIService) {
+                this._oShellUIService.setTitle(oCfg.title);
+            }
+        },
+
+        /**
+         * Push the application's header features into the FLP Sandbox shell
+         * header (settings + notifications buttons, dynamic title). The sandbox
+         * shell already provides the user/avatar (Me) area.
+         */
+        _initSandboxHeader: function () {
+            var that = this;
+            if (!(sap.ushell && sap.ushell.Container)) {
+                return;
+            }
+            sap.ushell.Container.getServiceAsync("ShellUIService").then(function (oShellUIService) {
+                that._oShellUIService = oShellUIService;
+                var oBundle = that.getBundle();
+                var sViewId = that.getView().getId();
+
+                oShellUIService.addHeaderItem(new ShellHeadItem({
+                    id: sViewId + "-homeHead",
+                    icon: "sap-icon://home",
+                    tooltip: oBundle.getText("navStart"),
+                    press: that.onNavHome.bind(that)
+                }), true, true);
+
+                oShellUIService.addHeaderItem(new ShellHeadItem({
+                    id: sViewId + "-settingsHead",
+                    icon: "sap-icon://action-settings",
+                    tooltip: oBundle.getText("settings"),
+                    press: that.onOpenSettings.bind(that)
+                }), true, true);
+
+                oShellUIService.addHeaderItem(new ShellHeadItem({
+                    id: sViewId + "-notifHead",
+                    icon: "sap-icon://bell",
+                    tooltip: "Benachrichtigungen",
+                    press: that.onNotifications.bind(that)
+                }), true, true);
+
+                // Apply the title for the route that is active at startup.
+                oShellUIService.setTitle(that.getOwnerComponent().getModel("appView").getProperty("/title"));
+            });
         },
 
         /**

@@ -4,12 +4,14 @@
    the centered content column, small brand touches, and responsive tuning.
    =========================================================================== */
 
-/* Centered content column shared by every page */
+/* Centered content column shared by every page.
+   The bottom padding reserves space for the fixed bottom-nav footer so the
+   last controls stay reachable above it (you can always scroll past them). */
 .fhContent {
   max-width: 1180px;
   width: 100%;
   margin: 0 auto;
-  padding: 1rem 1.5rem 1.5rem 1.5rem;
+  padding: 1rem 1.5rem 5rem 1.5rem;
   box-sizing: border-box;
 }
 
@@ -19,7 +21,8 @@
 
 /* Section cards get comfortable inner padding */
 .fhCardPad { padding: 1.25rem 1.5rem; }
-.fhSectionCard { margin-top: 0.5rem; }
+/* sap.f.Card defaults to 30rem; force it to span the whole content column */
+.fhSectionCard { margin-top: 0.5rem; width: 100%; }
 
 /* Toolbars above tables/charts: transparent, no border */
 .fhToolbar.sapMTB { background: transparent; border: none; padding-left: 0; padding-right: 0; }
@@ -34,6 +37,9 @@
 
 /* Donut wrapper keeps the VizFrame centered */
 .fhDonutWrap { position: relative; }
+
+/* VizFrame fills its parent container */
+.viz-frame { width: 100%; height: 100%; }
 
 /* Muted / soft text helpers (opacity keeps them theme-aware in light & dark) */
 .fhTextMute { opacity: 0.65; font-size: 0.82rem; }
@@ -69,4 +75,20 @@
 
 /* The nested App/pages must fill the height between shell header and footer */
 html, body, .fhRootPage, .fhRootPage > section { height: 100%; }
-.fhPage .sapMPageEnableScrolling { -webkit-overflow-scrolling: touch; }
+
+/* Remove the SAP logo from the FLP Sandbox shell header */
+.sapUshellShellHeader .sapUshellShellIco,
+.sapUshellShellHeader .sapUshellLogo { display: none !important; }
+
+/* Make the router App + every inner page fill the available height so they can
+   scroll instead of being clipped when content is taller than the viewport. */
+.fhRootPage #app,
+.fhRootPage #app > div,
+.fhRootPage .sapMApp,
+.fhPage { height: 100%; }
+
+.fhPage .sapMPageScroll {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
