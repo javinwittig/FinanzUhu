@@ -1,0 +1,45 @@
+<mvc:View controllerName="project1.controller.Chatbot"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page title="{i18n>chatbotTitle}"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+        class="fhPage fhChatPage">
+        <ScrollContainer id="chatScroll"
+            vertical="true"
+            height="100%"
+            class="fhChatScroll">
+            <List id="chatList"
+                items="{chat>/messages}"
+                showSeparators="None"
+                class="fhChatList">
+                <CustomListItem>
+                    <HBox class="fhChatRow"
+                        justifyContent="{= ${chat>role} === 'user' ? 'End' : 'Start' }">
+                        <VBox class="fhBubble">
+                            <customData>
+                                <core:CustomData key="chatrole" value="{chat>role}" writeToDom="true" />
+                            </customData>
+                            <Text text="{chat>text}" renderWhitespace="true" width="100%" />
+                        </VBox>
+                    </HBox>
+                </CustomListItem>
+            </List>
+        </ScrollContainer>
+
+        <footer>
+            <Toolbar class="fhChatInput" design="Transparent">
+                <Input id="chatInput"
+                    placeholder="{i18n>chatbotPlaceholder}"
+                    submit=".onSend"
+                    enabled="{= !${chat>/busy} }" />
+                <Button id="chatSend"
+                    icon="sap-icon://paper-plane"
+                    type="Emphasized"
+                    press=".onSend"
+                    enabled="{= !${chat>/busy} }" />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

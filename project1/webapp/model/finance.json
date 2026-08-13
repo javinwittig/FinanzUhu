@@ -101,12 +101,14 @@
   },
   "newEntry": {
     "type": "income",
+    "frequency": "once",
     "date": "14.10.2024",
     "party": "Musterfirma GmbH",
     "amount": "1250,00",
     "reason": "Gehalt",
     "extra": "Monatliche Vergütung für Beratungsdienstleistungen"
   },
+  "recurring": [],
   "reasons": [
     { "key": "Gehalt", "text": "Gehalt" },
     { "key": "Projekt", "text": "Projekt" },

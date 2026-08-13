@@ -11,6 +11,15 @@
         <!-- Router renders the page views into this nested App -->
         <App id="app" />
 
+        <!-- Floating chatbot button (bottom-left, persistent on every page) -->
+        <Button id="chatFab"
+            icon="sap-icon://comment"
+            type="Emphasized"
+            tooltip="{i18n>chatbotOpen}"
+            visible="{appView>/showChatFab}"
+            press=".onOpenChatbot"
+            class="fhChatFab" />
+
         <footer>
             <Toolbar class="fhNavToolbar" height="3.75rem">
                 <ToolbarSpacer />

@@ -6,6 +6,7 @@ sap.ui.define([
 
     var DEFAULT_ENTRY = {
         type: "income",
+        frequency: "once",
         date: "",
         party: "",
         amount: "",
@@ -19,6 +20,7 @@ sap.ui.define([
      */
     var IMPORT_HEADERS = {
         type: ["typ", "type", "art", "kategorieart"],
+        frequency: ["rhythmus", "frequency", "intervall", "interval", "turnus"],
         date: ["datum", "date"],
         party: ["herkunft", "party", "quelle", "source", "empfaenger", "recipient"],
         amount: ["betrag", "amount", "wert", "value"],
@@ -132,6 +134,7 @@ sap.ui.define([
             return oData.map(function (o) {
                 return {
                     type: o.type || o.art || "",
+                    frequency: o.frequency || o.rhythmus || o.intervall || "once",
                     date: o.date || o.datum || "",
                     party: o.party || o.herkunft || o.empfaenger || "",
                     amount: o.amount || o.betrag || o.wert || "",
@@ -163,8 +166,8 @@ sap.ui.define([
                 aMap = this._mapHeader(aFirst);
                 iStart = 1;
             } else {
-                // positional: Typ;Datum;Herkunft;Betrag;Grund;Notiz
-                aMap = { type: 0, date: 1, party: 2, amount: 3, reason: 4, extra: 5 };
+                // positional: Typ;Rhythmus;Datum;Herkunft;Betrag;Grund;Notiz
+                aMap = { type: 0, frequency: 1, date: 2, party: 3, amount: 4, reason: 5, extra: 6 };
                 iStart = 0;
             }
 
@@ -173,6 +176,7 @@ sap.ui.define([
                 var aCols = this._splitCsv(aLines[i], sDelim);
                 aResult.push({
                     type: (aMap.type >= 0 && aCols[aMap.type]) ? aCols[aMap.type].trim() : "",
+                    frequency: (aMap.frequency >= 0 && aCols[aMap.frequency]) ? aCols[aMap.frequency].trim() : "once",
                     date: (aMap.date >= 0 && aCols[aMap.date]) ? aCols[aMap.date].trim() : "",
                     party: (aMap.party >= 0 && aCols[aMap.party]) ? aCols[aMap.party].trim() : "",
                     amount: (aMap.amount >= 0 && aCols[aMap.amount]) ? aCols[aMap.amount].trim() : "",
@@ -187,7 +191,7 @@ sap.ui.define([
          * Map header cells to our entry properties. Returns a map property -> column index (-1 = absent).
          */
         _mapHeader: function (aHeaders) {
-            var oMap = { type: -1, date: -1, party: -1, amount: -1, reason: -1, extra: -1 };
+            var oMap = { type: -1, frequency: -1, date: -1, party: -1, amount: -1, reason: -1, extra: -1 };
             Object.keys(IMPORT_HEADERS).forEach(function (sProp) {
                 var aAliases = IMPORT_HEADERS[sProp];
                 for (var h = 0; h < aHeaders.length; h++) {
@@ -238,7 +242,14 @@ sap.ui.define([
             var fAmount = this._parseAmount(oNew.amount);
             var bIncome = this._isIncome(oNew);
             var sType = bIncome ? "income" : "expense";
+            var sFreq = this._normalizeFrequency(oNew.frequency);
             var fAbs = Math.abs(fAmount);
+
+            // Jahreswert (annualisiert) für KPIs und Donut-Kategorievergleich.
+            var fAnnual = sFreq === "monthly" ? fAbs * 12 : fAbs;
+            // Monatswert für die 12-Monats-Trendkurve.
+            var fMonthly = sFreq === "yearly" ? fAbs / 12 : fAbs;
+
             var sAmount = "€ " + (bIncome ? "" : "-") + this._formatAmount(fAbs);
             var sState = bIncome ? "positive" : "negative";
             var sColor = bIncome ? "green" : "red";
@@ -251,7 +262,8 @@ sap.ui.define([
                 category: oNew.reason || "Sonstiges",
                 categoryColor: sColor,
                 note: oNew.extra || "",
-                type: sType
+                type: sType,
+                frequency: sFreq
             };
 
             this._prepend(oFinance, "/ledger", oRow);
@@ -264,9 +276,44 @@ sap.ui.define([
                 note: oRow.note
             });
 
-            this._updateKpis(oFinance, sType, fAbs);
-            this._updateTrend(oFinance, sType, fAbs, oNew.date);
-            this._updateDonut(oFinance, fAbs, oNew.reason);
+            this._storeRecurring(oFinance, oNew, sFreq, sType, fAbs);
+
+            this._updateKpis(oFinance, sType, fAnnual);
+            this._updateTrend(oFinance, sType, fMonthly, sFreq, oNew.date);
+            this._updateDonut(oFinance, fAnnual, oNew.reason);
+        },
+
+        /**
+         * Normalisiert freie Rhythmus-Angaben (auch aus dem Import) auf die drei
+         * bekannten Schlüssel "once", "monthly" und "yearly".
+         */
+        _normalizeFrequency: function (sRaw) {
+            var s = String(sRaw || "").toLowerCase().trim();
+            if (/^(monat|month|monatl|monthly|monatlich|m)$/.test(s)) {
+                return "monthly";
+            }
+            if (/^(jahr|year|yearly|jaehrlich|jährlich|annual|annually)$/.test(s)) {
+                return "yearly";
+            }
+            return "once";
+        },
+
+        /**
+         * Speichert wiederkehrende Zahlungen in der separaten /recurring-Liste,
+         * damit Daueraufträge/Abos separat ausgewertet werden können.
+         */
+        _storeRecurring: function (oModel, oNew, sFreq, sType, fAbs) {
+            if (sFreq === "once") {
+                return;
+            }
+            this._prepend(oModel, "/recurring", {
+                type: sType,
+                frequency: sFreq,
+                party: oNew.party || "",
+                amount: fAbs,
+                reason: oNew.reason || "Sonstiges",
+                note: oNew.extra || ""
+            });
         },
 
         /**
@@ -347,15 +394,26 @@ sap.ui.define([
          * Add the amount to the matching month in the 12-month trend series
          * used by the column chart on the Graph page.
          */
-        _updateTrend: function (oModel, sType, fAbs, sDate) {
-            var i = this._monthIndex(sDate);
-            if (i < 0) { return; }
+        _updateTrend: function (oModel, sType, fAbs, sFreq, sDate) {
             var aTrend = oModel.getProperty("/trend");
-            if (!aTrend || !aTrend[i]) { return; }
-            if (sType === "income") {
-                aTrend[i].income = (aTrend[i].income || 0) + fAbs;
+            if (!aTrend) { return; }
+
+            var fnAdd = function (i) {
+                if (sType === "income") {
+                    aTrend[i].income = (aTrend[i].income || 0) + fAbs;
+                } else {
+                    aTrend[i].expense = (aTrend[i].expense || 0) + fAbs;
+                }
+            };
+
+            if (sFreq === "monthly" || sFreq === "yearly") {
+                for (var k = 0; k < aTrend.length; k++) {
+                    fnAdd(k);
+                }
             } else {
-                aTrend[i].expense = (aTrend[i].expense || 0) + fAbs;
+                var i = this._monthIndex(sDate);
+                if (i < 0 || !aTrend[i]) { return; }
+                fnAdd(i);
             }
             oModel.setProperty("/trend", aTrend);
         },

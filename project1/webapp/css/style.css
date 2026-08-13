@@ -76,6 +76,10 @@
 /* The nested App/pages must fill the height between shell header and footer */
 html, body, .fhRootPage, .fhRootPage > section { height: 100%; }
 
+/* Root page is the positioning context for the floating chatbot button
+   (absolute, not fixed — survives FLP shell transforms). */
+.fhRootPage { position: relative; }
+
 /* Remove the SAP logo from the FLP Sandbox shell header */
 .sapUshellShellHeader .sapUshellShellIco,
 .sapUshellShellHeader .sapUshellLogo { display: none !important; }
@@ -85,10 +89,65 @@ html, body, .fhRootPage, .fhRootPage > section { height: 100%; }
 .fhRootPage #app,
 .fhRootPage #app > div,
 .fhRootPage .sapMApp,
+.fhRootPage .sapMNav,
 .fhPage { height: 100%; }
 
 .fhPage .sapMPageScroll {
   height: 100%;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+/* ---------------------------------------------------------------------------
+   Floating chatbot button (bottom-left, above the bottom-nav footer)
+   --------------------------------------------------------------------------- */
+.fhChatFab {
+  position: absolute;
+  left: 1rem;
+  bottom: 4.75rem;
+  z-index: 1000;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+}
+
+/* ---------------------------------------------------------------------------
+   Chatbot page
+   --------------------------------------------------------------------------- */
+.fhChatPage .sapMPageScroll { overflow: hidden; }
+.fhChatScroll { height: 100%; }
+.fhChatList { background: transparent; }
+.fhChatRow { padding: 0.35rem 1rem; }
+.fhBubble {
+  max-width: 78%;
+  padding: 0.6rem 0.9rem;
+  border-radius: 1.1rem;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.fhBubble[data-chatrole="bot"] {
+  background: var(--sapField_Background, #eceff3);
+  border-bottom-left-radius: 0.3rem;
+}
+.fhBubble[data-chatrole="user"] {
+  background: var(--sapButton_Emphasized_Background, #0a6ed1);
+  color: #ffffff;
+  border-bottom-right-radius: 0.3rem;
+}
+.fhChatInput {
+  padding: 0.5rem 0.75rem;
+  background: var(--sapPageHeader_Background, #ffffff);
+  border-top: 1px solid var(--sapGroup_ContentBorderColor, #d9d9d9);
+}
+.fhChatInput .sapMInput {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .fhChatFab { bottom: 4.5rem; }
+  .fhBubble { max-width: 85%; }
 }

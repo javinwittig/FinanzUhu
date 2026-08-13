@@ -33,7 +33,8 @@ sap.ui.define([
                 nav: "start",
                 showLive: false,
                 theme: sThemePref,
-                compact: true
+                compact: true,
+                showChatFab: true
             }), "appView");
 
             // enable routing

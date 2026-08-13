@@ -39,6 +39,14 @@
                                     <SegmentedButtonItem key="expense" icon="sap-icon://money-bills" text="Ausgabe"/>
                                 </items>
                             </SegmentedButton>
+                            <Label text="Rhythmus"/>
+                            <SegmentedButton selectedKey="{finance>/newEntry/frequency}">
+                                <items>
+                                    <SegmentedButtonItem key="once" text="{i18n>freqOnce}"/>
+                                    <SegmentedButtonItem key="monthly" text="{i18n>freqMonthly}"/>
+                                    <SegmentedButtonItem key="yearly" text="{i18n>freqYearly}"/>
+                                </items>
+                            </SegmentedButton>
                             <Label text="Datum"/>
                             <DatePicker value="{finance>/newEntry/date}" displayFormat="dd.MM.yyyy" valueFormat="dd.MM.yyyy"/>
                             <Label text="Herkunft"/>

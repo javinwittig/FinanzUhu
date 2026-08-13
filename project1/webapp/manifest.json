@@ -93,7 +93,8 @@
         { "name": "einnahmen", "pattern": "einnahmen", "target": ["einnahmen"] },
         { "name": "ausgaben", "pattern": "ausgaben", "target": ["ausgaben"] },
         { "name": "ergebnis", "pattern": "ergebnis", "target": ["ergebnis"] },
-        { "name": "ueberblick", "pattern": "ueberblick", "target": ["ueberblick"] }
+        { "name": "ueberblick", "pattern": "ueberblick", "target": ["ueberblick"] },
+        { "name": "chatbot", "pattern": "chatbot", "target": ["chatbot"] }
       ],
       "targets": {
         "home": { "id": "Home", "name": "Home" },
@@ -105,7 +106,8 @@
         "einnahmen": { "id": "EinnahmenDetail", "name": "EinnahmenDetail" },
         "ausgaben": { "id": "AusgabenDetail", "name": "AusgabenDetail" },
         "ergebnis": { "id": "ErgebnisDetail", "name": "ErgebnisDetail" },
-        "ueberblick": { "id": "Ueberblick", "name": "Ueberblick" }
+        "ueberblick": { "id": "Ueberblick", "name": "Ueberblick" },
+        "chatbot": { "id": "Chatbot", "name": "Chatbot" }
       }
     },
     "rootView": {

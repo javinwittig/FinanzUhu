@@ -44,6 +44,9 @@ sap.ui.define([
             oModel.setProperty("/title", oCfg.title);
             oModel.setProperty("/nav", oCfg.nav);
             oModel.setProperty("/showLive", oCfg.showLive);
+            // Hide the floating chatbot button while the chatbot page is open
+            // (it provides its own navigation).
+            oModel.setProperty("/showChatFab", sName !== "chatbot");
             // Mirror the route title into the FLP Sandbox shell header.
             if (this._oShellUIService) {
                 this._oShellUIService.setTitle(oCfg.title);
@@ -88,6 +91,9 @@ sap.ui.define([
 
                 // Apply the title for the route that is active at startup.
                 oShellUIService.setTitle(that.getOwnerComponent().getModel("appView").getProperty("/title"));
+            }).catch(function () {
+                // ShellUIService is not available (e.g. standalone / local serve).
+                // The app keeps working without the sandbox header items.
             });
         },
 
@@ -111,6 +117,13 @@ sap.ui.define([
 
         onNavHome: function () {
             this.navTo("home");
+        },
+
+        /**
+         * Open the chatbot page from the floating bottom-left button.
+         */
+        onOpenChatbot: function () {
+            this.navTo("chatbot");
         },
 
         /* --- Settings popover ------------------------------------------- */
