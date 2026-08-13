@@ -147,6 +147,42 @@ html, body, .fhRootPage, .fhRootPage > section { height: 100%; }
   margin-right: 0.5rem;
 }
 
+/* New inline input bar (replaces the hidden footer approach) */
+.fhChatPage .sapMPageEnableScrolling { overflow: hidden; }
+.fhChatPage .sapMPageSub                { display: none; }
+.fhChatPage > section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.fhChatScroll {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Leave room at the bottom for the fixed input bar */
+  padding-bottom: 3.5rem;
+}
+/* Input bar fixed just above the bottom nav (60 px) */
+.fhChatInputBar.sapMTB {
+  position: fixed !important;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0.4rem 0.75rem;
+  background: var(--sapPageHeader_Background) !important;
+  border-top: 1px solid var(--sapGroup_ContentBorderColor, #d9d9d9);
+  box-sizing: border-box;
+}
+/* Input inside the bar stretches to fill space */
+.fhChatInputBar .sapMInput {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  margin-right: 0.5rem;
+}
+
 @media (max-width: 600px) {
   .fhChatFab { bottom: 4.5rem; }
   .fhBubble { max-width: 85%; }

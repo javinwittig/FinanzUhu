@@ -5,31 +5,37 @@
     <Page title="{i18n>chatbotTitle}"
         showNavButton="true"
         navButtonPress=".onNavBack"
+        enableScrolling="false"
         class="fhPage fhChatPage">
-        <ScrollContainer id="chatScroll"
-            vertical="true"
-            height="100%"
-            class="fhChatScroll">
-            <List id="chatList"
-                items="{chat>/messages}"
-                showSeparators="None"
-                class="fhChatList">
-                <CustomListItem>
-                    <HBox class="fhChatRow"
-                        justifyContent="{= ${chat>role} === 'user' ? 'End' : 'Start' }">
-                        <VBox class="fhBubble">
-                            <customData>
-                                <core:CustomData key="chatrole" value="{chat>role}" writeToDom="true" />
-                            </customData>
-                            <Text text="{chat>text}" renderWhitespace="true" width="100%" />
-                        </VBox>
-                    </HBox>
-                </CustomListItem>
-            </List>
-        </ScrollContainer>
+        <FlexBox direction="Column" height="100%" width="100%" renderType="Bare">
+            <!-- Message list — grows to fill available space -->
+            <ScrollContainer id="chatScroll"
+                vertical="true"
+                class="fhChatScroll"
+                width="100%">
+                <layoutData>
+                    <FlexItemData growFactor="1" minHeight="0px" />
+                </layoutData>
+                <List id="chatList"
+                    items="{chat>/messages}"
+                    showSeparators="None"
+                    class="fhChatList">
+                    <CustomListItem>
+                        <HBox class="fhChatRow"
+                            justifyContent="{= ${chat>role} === 'user' ? 'End' : 'Start' }">
+                            <VBox class="fhBubble">
+                                <customData>
+                                    <core:CustomData key="chatrole" value="{chat>role}" writeToDom="true" />
+                                </customData>
+                                <Text text="{chat>text}" renderWhitespace="true" width="100%" />
+                            </VBox>
+                        </HBox>
+                    </CustomListItem>
+                </List>
+            </ScrollContainer>
 
-        <footer>
-            <Toolbar class="fhChatInput" design="Transparent">
+            <!-- Input bar — always visible above the root bottom-nav -->
+            <Toolbar id="chatInputBar" class="fhChatInputBar" width="100%">
                 <Input id="chatInput"
                     placeholder="{i18n>chatbotPlaceholder}"
                     submit=".onSend"
@@ -40,6 +46,6 @@
                     press=".onSend"
                     enabled="{= !${chat>/busy} }" />
             </Toolbar>
-        </footer>
+        </FlexBox>
     </Page>
 </mvc:View>
